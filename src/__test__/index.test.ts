@@ -43,7 +43,7 @@ describe('express', function () {
     it('should respond with 401 for invalid login details', async () => {
       const res = await request(server)
       .get('/basic-auth')
-      .set('authorization', 'Bxxxx vWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
+      .set('authorization', 'Basic vWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
       expect(res.statusCode).to.equal(401);
     });
   })
