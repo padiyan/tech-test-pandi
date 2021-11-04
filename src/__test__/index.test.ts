@@ -26,5 +26,25 @@ describe('express', function () {
       .set('authorization', 'Basic bWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
       expect(res.statusCode).to.equal(200);
     });
+
+    it('should respond with 401 for missing Authorization header value', async () => {
+      const res = await request(server)
+      .get('/basic-auth')
+      expect(res.statusCode).to.equal(401);
+    });
+
+    it('should respond with 401 for invalid Authorization token value', async () => {
+      const res = await request(server)
+      .get('/basic-auth')
+      .set('authorization', 'Bxxxx bWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
+      expect(res.statusCode).to.equal(401);
+    });
+
+    it('should respond with 401 for invalid login details', async () => {
+      const res = await request(server)
+      .get('/basic-auth')
+      .set('authorization', 'Bxxxx vWF0dEBnbWFpbC5jb206dGhpcyBpcyBhIHZAbGlkIHBhc3N3b3JkIQ==');
+      expect(res.statusCode).to.equal(401);
+    });
   })
 });
